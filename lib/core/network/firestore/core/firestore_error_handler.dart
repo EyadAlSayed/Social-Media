@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'firestore_base_model.dart';
@@ -92,31 +91,31 @@ abstract class FireAuthMethodErrorHandler {
 String handleFirebaseError({required FirebaseException exception}) {
   switch (exception.code) {
     case 'permission-denied':
-      return "youDoNotHavePermissionToPerformThisAction".tr();
+      return "you do not have permission to perform this action";
     case 'unavailable':
-      return "thisServiceIsCurrentlyUnavailable".tr();
+      return "this service is currently unavailable";
     default:
-      return "${"anUnknownFirebaseErrorOccurred".tr()} : ${exception.message}'";
+      return "an unknown firebase error occurred : ${exception.message}";
   }
 }
 
 String handleFirebaseAuthError({required FirebaseException exception}) {
   switch (exception.code) {
     case "user-not-found":
-      return "noUserFoundForThatEmail".tr();
+      return "no user found for that email";
     case "wrong-password":
-      return "wrongPasswordProvided".tr();
+      return "wrong password provided";
     case "invalid-verification-code":
-      return "invalidVerificationCode".tr();
+      return "invalid verification code";
     default:
       return 'authenticationError: ${exception.message}';
   }
 }
 
 String handlePlatformError({required PlatformException exception}) {
-  return "${"aPlatformErrorOccurred".tr()} : ${exception.message}";
+  return "a platform error occurred : ${exception.message}";
 }
 
 String handleGeneralExceptionError({required Object exception}) {
-  return "anUnknownErrorOccurred".tr();
+  return "an unknown error occurred";
 }

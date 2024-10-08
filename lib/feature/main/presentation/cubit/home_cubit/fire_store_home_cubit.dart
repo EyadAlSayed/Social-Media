@@ -2,29 +2,26 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_media/core/storage/shared/app_shared_preferences.dart';
-import 'package:social_media/feature/auth/domain/entities/request/login_request_entity.dart';
-import 'package:social_media/feature/auth/domain/usecases/fire_auth_usecase/fire_auth_login_usecase.dart';
+import 'package:social_media/feature/auth/domain/entities/request/forget_password_request_entity.dart';
+import 'package:social_media/feature/auth/domain/usecases/fire_auth_usecase/fire_auth_forget_password_usecase.dart';
+import 'package:social_media/feature/main/domain/entities/response/home_response_entity.dart';
+import 'package:social_media/feature/main/domain/usecases/fire_auth_usecase/fire_store_home_usecase.dart';
 import '../../../../../core/network/error/network_error_handler.dart';
 import '../../../../../core/network/error/network_failures.dart';
-import '../../../../../core/network/firestore/core/firestore_base_model.dart';
 import '../../../../../core/resource/app_enum.dart';
+import 'fire_store_home_state.dart';
 
-part 'fire_auth_login_state.dart';
+class FireStoreHomeCubit extends Cubit<FireStoreHomeState> {
+  final FireStoreHomeUsecase usecase;
 
-class FireAuthLoginCubit extends Cubit<FireAuthLoginState> {
-  final FireAuthLoginUsecase usecase;
-
-  FireAuthLoginCubit({
+  FireStoreHomeCubit({
     required this.usecase,
-  }) : super(FireAuthLoginState.initial());
+  }) : super(FireStoreHomeState.initial());
 
-  void login(
-      { BuildContext? buildContext,
-      required LoginRequestEntity entity}) async {
+  void getHome({BuildContext? buildContext}) async {
     emit(state.copyWith(status: CubitStatus.loading));
 
-    Either<NetworkFailure, Unit> result = await usecase(entity: entity);
+    Either<NetworkFailure, HomeResponseEntity> result = await usecase();
 
     if (isClosed) return;
 
@@ -36,7 +33,6 @@ class FireAuthLoginCubit extends Cubit<FireAuthLoginState> {
             error: errorEntity.errorMessage, status: CubitStatus.error));
       },
       (data) {
-        AppSharedPreferences.cashLoggedIn(isLoggedIn: true);
         emit(state.copyWith(status: CubitStatus.success));
       },
     );

@@ -18,9 +18,8 @@ class FireAuthSignUpCubit extends Cubit<FireAuthSignUpState> {
     required this.usecase,
   }) : super(FireAuthSignUpState.initial());
 
-  void login(
-      {required BuildContext? buildContext,
-      required SignupRequestEntity entity}) async {
+  void signUp(
+      {BuildContext? buildContext, required SignupRequestEntity entity}) async {
     emit(state.copyWith(status: CubitStatus.loading));
 
     Either<NetworkFailure, Unit> result = await usecase(entity: entity);

@@ -7,13 +7,12 @@ import '../../resource/app_size.dart';
 /**
  * Created by Eng.Eyad AlSayed on 10/7/2024.
  */
-class AppTextFormField extends StatelessWidget {
+class AppTextFormField extends StatefulWidget {
   final Widget? suffixIcon;
   final TextEditingController? controller;
-  final bool? obscureText;
   final bool? enabled;
   final String? Function(String?)? validator;
-  final String? Function(String?)? onFilledSubmited;
+  final String? Function(String?)? onFieldSubmitted;
   final Function()? editingComplete;
   final String? Function(String?)? onChanged;
   final TextInputType? textInputType;
@@ -32,11 +31,12 @@ class AppTextFormField extends StatelessWidget {
   final String? hintText;
   final bool? outlinedBorder;
   final bool? expand;
-  final bool? autoFoucs;
+  final bool? autoFocus;
   final double? borderRadius;
   final EdgeInsetsGeometry? contentPadding;
   final bool? filled;
   final bool? readOnly;
+  final bool? passwordMode;
   final GlobalKey<FormState>? formKey;
 
   const AppTextFormField(
@@ -53,8 +53,7 @@ class AppTextFormField extends StatelessWidget {
       this.contentPadding,
       this.controller,
       this.formKey,
-      this.obscureText,
-      this.autoFoucs,
+      this.autoFocus,
       this.validator,
       this.hintStyle,
       this.editingComplete,
@@ -66,53 +65,72 @@ class AppTextFormField extends StatelessWidget {
       this.labelText,
       this.textColor,
       this.labelColor,
-      this.onFilledSubmited,
+      this.onFieldSubmitted,
       this.initialValue,
       this.maxLines,
       this.prefixIcon,
       this.hintText,
+      this.passwordMode,
       this.outlinedBorder})
       : super(key: key);
 
   @override
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
+}
+
+class _AppTextFormFieldState extends State<AppTextFormField> {
+  bool _obscureText = true;
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: TextFormField(
-        key: Key(initialValue ?? ""),
-        readOnly: readOnly ?? false,
-        textAlignVertical: textAlignVertical,
-        onFieldSubmitted: onFilledSubmited,
-        validator: validator,
-        controller: controller,
-        focusNode: focusNode,
-        obscureText: obscureText ?? false,
-        onChanged: onChanged,
-        autofocus: autoFoucs ?? false,
-        onEditingComplete: editingComplete,
-        keyboardType: textInputType,
-        textInputAction: textInputAction,
-        minLines: minLines,
-        maxLines: maxLines,
-        initialValue: initialValue,
-        enabled: enabled,
-        expands: expand ?? false,
+        key: Key(widget.initialValue ?? ""),
+        readOnly: widget.readOnly ?? false,
+        textAlignVertical: widget.textAlignVertical,
+        onFieldSubmitted: widget.onFieldSubmitted,
+        validator: widget.validator,
+        controller: widget.controller,
+        focusNode: widget.focusNode,
+        obscureText: widget.passwordMode == true ? _obscureText : false,
+        onChanged: widget.onChanged,
+        autofocus: widget.autoFocus ?? false,
+        onEditingComplete: widget.editingComplete,
+        keyboardType: widget.textInputType,
+        textInputAction: widget.textInputAction,
+        minLines: widget.minLines,
+        maxLines: widget.maxLines,
+        initialValue: widget.initialValue,
+        enabled: widget.enabled,
+        expands: widget.expand ?? false,
         decoration: InputDecoration(
-          filled: filled ?? true,
-          fillColor: fillColor ?? AppColor.white,
-          hintText: hintText,
-          suffixIcon: suffixIcon,
-          prefixIcon: prefixIcon,
-          hintStyle: hintStyle,
+          filled: widget.filled ?? true,
+          fillColor: widget.fillColor ?? AppColor.white,
+          hintText: widget.hintText,
+          suffixIcon: widget.passwordMode == false
+              ? widget.suffixIcon
+              : IconButton(
+                  icon: Icon(
+                    color: AppColor.darkBlue,
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                ),
+          prefixIcon: widget.prefixIcon,
+          hintStyle: widget.hintStyle,
           prefixIconColor: Colors.grey,
           suffixIconColor: Colors.grey,
-          contentPadding: contentPadding ??
+          contentPadding: widget.contentPadding ??
               EdgeInsets.symmetric(
-                  horizontal: AppWidth.w3,
-                  vertical: AppHeight.h1),
-          labelText: labelText,
+                  horizontal: AppWidth.w3, vertical: AppHeight.h1),
+          labelText: widget.labelText,
           labelStyle: TextStyle(
-              color: labelColor,
+              color: widget.labelColor,
               fontSize: AppFontSize.fs16,
               fontWeight: FontWeight.bold,
               fontFamily: AppFontFamily.glory),
@@ -122,33 +140,41 @@ class AppTextFormField extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(
-                  borderRadius != null ? borderRadius! : AppRadius.r10)),
+                  widget.borderRadius != null
+                      ? widget.borderRadius!
+                      : AppRadius.r10)),
               borderSide: BorderSide(
                 color: AppColor.grey.withOpacity(0.6),
               )),
           disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(
-                  borderRadius != null ? borderRadius! : AppRadius.r10)),
+                  widget.borderRadius != null
+                      ? widget.borderRadius!
+                      : AppRadius.r10)),
               borderSide: const BorderSide(
                 color: Colors.transparent,
                 // color: Colors.transparent,
               )),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(
-                  borderRadius != null ? borderRadius! : AppRadius.r10)),
+                  widget.borderRadius != null
+                      ? widget.borderRadius!
+                      : AppRadius.r10)),
               borderSide: BorderSide(
                 color: AppColor.grey.withOpacity(0.6),
               )),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(
-                  borderRadius != null ? borderRadius! : AppRadius.r10)),
+                  widget.borderRadius != null
+                      ? widget.borderRadius!
+                      : AppRadius.r10)),
               borderSide: BorderSide(
                 color: Theme.of(context).primaryColor,
               )),
         ),
-        style: style ??
+        style: widget.style ??
             TextStyle(
-                color: textColor,
+                color: widget.textColor,
                 fontSize: AppFontSize.fs16,
                 fontFamily: AppFontFamily.glory),
       ),

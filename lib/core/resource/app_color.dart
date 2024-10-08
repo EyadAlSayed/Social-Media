@@ -16,6 +16,7 @@ abstract class AppColor {
   static const Color darkBlue2 = Color(0xff1f2c3c);
 
   static const Color red = Colors.red;
+  static const Color green = Colors.green;
 
   static const Color shadow = Color.fromARGB(28, 130, 130, 130);
 

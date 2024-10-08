@@ -16,15 +16,6 @@ abstract class AppSharedPreferences {
     _sharedPreferences.clear();
   }
 
-  static void cashUserInfo({
-    required String token,
-    required String userId,
-}){
-
-    _sharedPreferences.setString(AppKey.token, token);
-    _sharedPreferences.setString(AppKey.userId, userId);
-
-  }
   static cashLanguage({required String language}) {
     _sharedPreferences.setString(AppKey.language, language);
   }
@@ -33,7 +24,11 @@ abstract class AppSharedPreferences {
     return _sharedPreferences.getString(AppKey.language) ?? "en";
   }
 
-  static String getToken() {
-    return _sharedPreferences.getString(AppKey.token) ?? '';
+  static void cashLoggedIn({required bool isLoggedIn}) {
+    _sharedPreferences.setBool(AppKey.isLoggedIn, isLoggedIn);
+  }
+
+  static bool isLoggedIn() {
+    return _sharedPreferences.getBool(AppKey.isLoggedIn) ?? false;
   }
 }

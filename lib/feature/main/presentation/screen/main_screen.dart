@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:social_media/core/resource/app_color.dart';
 import 'package:social_media/core/resource/app_icon.dart';
 import 'package:social_media/core/resource/app_size.dart';
@@ -25,56 +26,69 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _selectedScreenIndex == 2 ?AppColor.white:AppColor.darkBlue,
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 500),
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-        child: screens[_selectedScreenIndex],
-      ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(AppRadius.r20),
-            topRight: Radius.circular(AppRadius.r20)),
-        child: BottomNavigationBar(
-          backgroundColor: AppColor.white,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: BottomNavBarIcon(
-                  selectedIndex: _selectedScreenIndex,
-                  itemIndex: 0,
-                  icon: AppIcon.home),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: BottomNavBarIcon(
-                  selectedIndex: _selectedScreenIndex,
-                  itemIndex: 1,
-                  icon: AppIcon.compass),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: BottomNavBarIcon(
-                  selectedIndex: _selectedScreenIndex,
-                  itemIndex: 2,
-                  icon: AppIcon.profile),
-              label: '',
-            ),
-          ],
-          showSelectedLabels: false,
-          // Hide label for selected item
-          showUnselectedLabels: false,
-          // Hide label for unselected items
-          currentIndex: _selectedScreenIndex,
-          selectedItemColor: AppColor.darkBlue,
-          onTap: (newIndex) {
-            if (_selectedScreenIndex == newIndex) return;
-            setState(() {
-              _selectedScreenIndex = newIndex;
-            });
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop == false && _selectedScreenIndex != 0) {
+          setState(() {
+            _selectedScreenIndex = 0;
+          });
+        } else {
+          FlutterExitApp.exitApp(iosForceExit: true);
+        }
+      },
+      canPop: false,
+      child: Scaffold(
+        backgroundColor:
+            _selectedScreenIndex == 2 ? AppColor.white : AppColor.darkBlue,
+        body: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
           },
+          child: screens[_selectedScreenIndex],
+        ),
+        bottomNavigationBar: ClipRRect(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(AppRadius.r20),
+              topRight: Radius.circular(AppRadius.r20)),
+          child: BottomNavigationBar(
+            backgroundColor: AppColor.white,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: BottomNavBarIcon(
+                    selectedIndex: _selectedScreenIndex,
+                    itemIndex: 0,
+                    icon: AppIcon.home),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: BottomNavBarIcon(
+                    selectedIndex: _selectedScreenIndex,
+                    itemIndex: 1,
+                    icon: AppIcon.compass),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: BottomNavBarIcon(
+                    selectedIndex: _selectedScreenIndex,
+                    itemIndex: 2,
+                    icon: AppIcon.profile),
+                label: '',
+              ),
+            ],
+            showSelectedLabels: false,
+            // Hide label for selected item
+            showUnselectedLabels: false,
+            // Hide label for unselected items
+            currentIndex: _selectedScreenIndex,
+            selectedItemColor: AppColor.darkBlue,
+            onTap: (newIndex) {
+              if (_selectedScreenIndex == newIndex) return;
+              setState(() {
+                _selectedScreenIndex = newIndex;
+              });
+            },
+          ),
         ),
       ),
     );

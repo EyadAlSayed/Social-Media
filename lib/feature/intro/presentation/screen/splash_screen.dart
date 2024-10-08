@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_exit_app/flutter_exit_app.dart';
+import 'package:social_media/core/storage/shared/app_shared_preferences.dart';
 
 import '../../../../core/helper/app_info_helper.dart';
 import '../../../../core/resource/app_color.dart';
@@ -28,25 +30,33 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Image.asset(
-            AppImage.splash,
-            width: AppWidth.w100,
-            height: AppHeight.h100,
-            fit: BoxFit.cover,
-          ),
-          Container(
-              margin: EdgeInsets.only(bottom: AppHeight.h4),
-              child: AppTextWidget(
-                color: AppColor.black,
-                text: "v${AppInfoHelper.getAppVersion()}",
-                fontSize: AppFontSize.fs16,
-                fontWeight: FontWeight.w600,
-              ))
-        ],
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop == false) {
+          FlutterExitApp.exitApp(iosForceExit: true);
+        }
+      },
+      canPop: false,
+      child: Scaffold(
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Image.asset(
+              AppImage.splash,
+              width: AppWidth.w100,
+              height: AppHeight.h100,
+              fit: BoxFit.cover,
+            ),
+            Container(
+                margin: EdgeInsets.only(bottom: AppHeight.h4),
+                child: AppTextWidget(
+                  color: AppColor.black,
+                  text: "v${AppInfoHelper.getAppVersion()}",
+                  fontSize: AppFontSize.fs16,
+                  fontWeight: FontWeight.w600,
+                ))
+          ],
+        ),
       ),
     );
   }
@@ -55,8 +65,13 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 1),
       () {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            AppRouterScreenNames.main, (route) => false);
+        if (AppSharedPreferences.isLoggedIn() == true) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              AppRouterScreenNames.main, (route) => false);
+        } else {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              AppRouterScreenNames.authType, (route) => false);
+        }
       },
     );
   }

@@ -19,9 +19,6 @@ class AppTextWidget extends StatefulWidget {
   final TextStyle? style;
   final TextOverflow? overflow;
   final int? maxLines;
-
-
-
   final bool? softWrap;
   final EdgeInsetsGeometry? padding;
   final void Function()? onTap;

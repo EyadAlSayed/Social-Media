@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:social_media/core/resource/app_font.dart';
 import 'package:social_media/core/resource/app_icon.dart';
@@ -7,6 +8,9 @@ import 'package:social_media/core/widget/button/app_button.dart';
 import 'package:social_media/core/widget/form_field/app_form_field.dart';
 import 'package:social_media/core/widget/loading/app_circular_progress_widget.dart';
 import 'package:social_media/core/widget/text/app_text_widget.dart';
+import 'package:social_media/feature/auth/domain/entities/request/login_request_entity.dart';
+import 'package:social_media/feature/auth/presentation/cubit/fire_auth_log_out_cubit/fire_auth_log_out_cubit.dart';
+import 'package:social_media/feature/auth/presentation/cubit/fire_auth_login_cubit/fire_auth_login_cubit.dart';
 import 'package:social_media/feature/auth/presentation/widget/bottom_sheet/forgot_password_bottom_sheet.dart';
 import 'package:social_media/feature/auth/presentation/widget/dialog/signup_dialog.dart';
 import 'package:social_media/router/app_router_screens_name.dart';
@@ -14,6 +18,7 @@ import 'package:social_media/router/app_router_screens_name.dart';
 import '../../../../core/resource/app_color.dart';
 import '../../../../core/resource/app_enum.dart';
 import '../../../../core/resource/app_image.dart';
+import '../../../../core/widget/snack_bar/note_message.dart';
 
 /**
  * Created by Eng.Eyad AlSayed on 10/8/2024.
@@ -93,7 +98,7 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppWidth.w5),
               child: AppTextFormField(
-                obscureText: true,
+                passwordMode: true,
                 controller: controllers.last,
                 formKey: keys.last,
                 validator: (value) {
@@ -110,23 +115,45 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
             SizedBox(
               height: AppHeight.h6,
             ),
-            AppButton(
-              width: AppWidth.w80,
-              height: AppHeight.h6,
-              color: AppColor.darkBlue,
-              alignment: Alignment.center,
-              borderRadius: BorderRadius.circular(AppRadius.r20),
-              padding: EdgeInsets.symmetric(horizontal: AppWidth.w5),
-              child: AppTextWidget(
-                text: "Login",
-                color: AppColor.white,
-                fontSize: AppFontSize.fs17,
-                fontWeight: FontWeight.w600,
-              ),
-              onTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  AppRouterScreenNames.main,
-                  (route) => false,
+            BlocConsumer<FireAuthLoginCubit, FireAuthLoginState>(
+              listener: (context, state) {
+                if (state.status == CubitStatus.error) {
+                  NoteMessage.showErrorSnackBar(
+                      context: context, text: state.error ?? "");
+                }
+                if (state.status == CubitStatus.success) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    AppRouterScreenNames.main,
+                        (route) => false,
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state.status == CubitStatus.loading) {
+                  return AppCircularProgressWidget();
+                }
+                return AppButton(
+                  width: AppWidth.w80,
+                  height: AppHeight.h6,
+                  color: AppColor.darkBlue,
+                  alignment: Alignment.center,
+                  borderRadius: BorderRadius.circular(AppRadius.r20),
+                  padding: EdgeInsets.symmetric(horizontal: AppWidth.w5),
+                  child: AppTextWidget(
+                    text: "Login",
+                    color: AppColor.white,
+                    fontSize: AppFontSize.fs17,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  onTap: () {
+                    if(isValidInput() == true) {
+                      context.read<FireAuthLoginCubit>().login(
+                        entity: LoginRequestEntity(
+                            email: controllers.first.text,
+                            password: controllers.last.text
+                        ));
+                    }
+                  },
                 );
               },
             ),

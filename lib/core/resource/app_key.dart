@@ -9,8 +9,7 @@ abstract class AppKey {
 
 
   /// app shared preferences keys
-  static const String token = "token";
-  static const String userId = "userId";
+  static const String isLoggedIn = "isLoggedIn";
   static const String language = "language";
 
 

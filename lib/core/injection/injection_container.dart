@@ -3,6 +3,12 @@ import 'package:social_media/feature/auth/data/datasources/remot/api_auth_remote
 import 'package:social_media/feature/auth/data/datasources/remot/fire_auth_remote.dart';
 import 'package:social_media/feature/auth/domain/usecases/fire_auth_usecase/fire_auth_login_usecase.dart';
 import 'package:social_media/feature/auth/presentation/cubit/fire_auth_log_out_cubit/fire_auth_log_out_cubit.dart';
+import 'package:social_media/feature/main/data/datasources/remot/api_main_remote.dart';
+import 'package:social_media/feature/main/data/datasources/remot/fire_store_main_remote.dart';
+import 'package:social_media/feature/main/data/repositories/main_repository_implements.dart';
+import 'package:social_media/feature/main/domain/repositories/api_main_repository.dart';
+import 'package:social_media/feature/main/domain/usecases/fire_auth_usecase/fire_store_home_usecase.dart';
+import 'package:social_media/feature/main/presentation/cubit/home_cubit/fire_store_home_cubit.dart';
 import '../../feature/auth/data/repositories/auth_repository_implements.dart';
 import '../../feature/auth/domain/repositories/api_auth_repository.dart';
 import '../../feature/auth/domain/usecases/fire_auth_usecase/fire_auth_forget_password_usecase.dart';
@@ -35,4 +41,14 @@ Future<void> initDI() async {
   );
   getIt.registerLazySingleton<FireAuthRemote>(() => FireAuthRemoteImplement());
   getIt.registerLazySingleton<ApiAuthRemote>(() => ApiAuthRemoteImplement());
+
+  getIt.registerFactory(() => FireStoreHomeCubit(usecase: getIt()));
+  getIt.registerLazySingleton(() => FireStoreHomeUsecase(repository: getIt()));
+  getIt.registerLazySingleton<ApiMainRepository>(
+    () => MainRepositoryImplements(
+        fireStoreMainRemote: getIt(), apiMainRemote: getIt()),
+  );
+  getIt.registerLazySingleton<FireStoreMainRemote>(
+      () => FireStoreMainRemoteImplement());
+  getIt.registerLazySingleton<ApiMainRemote>(() => ApiMainRemoteImplement());
 }

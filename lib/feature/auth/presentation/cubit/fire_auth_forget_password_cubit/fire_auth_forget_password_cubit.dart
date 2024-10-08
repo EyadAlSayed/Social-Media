@@ -17,8 +17,8 @@ class FireAuthForgetPasswordCubit extends Cubit<FireAuthForgetPasswordState> {
     required this.usecase,
   }) : super(FireAuthForgetPasswordState.initial());
 
-  void login(
-      {required BuildContext? buildContext,
+  void forgetPassword(
+      { BuildContext? buildContext,
       required ForgetPasswordRequestEntity entity}) async {
     emit(state.copyWith(status: CubitStatus.loading));
 

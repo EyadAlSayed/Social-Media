@@ -23,4 +23,6 @@ abstract class AppIcon {
   static String trash = '$_iconBasePath/trash.svg';
   static String firebase = '$_iconBasePath/firebase.svg';
   static String send = '$_iconBasePath/send.svg';
+  static String warning = '$_iconBasePath/warning.svg';
+  static String done = '$_iconBasePath/done.svg';
 }
