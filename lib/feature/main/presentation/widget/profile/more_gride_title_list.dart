@@ -6,7 +6,7 @@ import '../../../../../core/resource/app_size.dart';
 import '../../../../../core/widget/text/app_text_widget.dart';
 
 /**
- * Created by Eng.Eyad AlSayed on 4/23/2024.
+ * Created by Eng.Eyad AlSayed on 10/7/2024.
  */
 
 class MoreGridTitleList extends StatelessWidget {

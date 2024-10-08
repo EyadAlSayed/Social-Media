@@ -8,7 +8,7 @@ import 'firestore_base_model.dart';
 import 'firestore_error_handler.dart';
 
 /**
-   * Created by Eng.Eyad AlSayed on 5/15/2024.
+   * Created by Eng.Eyad AlSayed on 10/7/2024.
    */
 
 abstract class FireStoreCollectionName {

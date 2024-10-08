@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media/core/resource/app_size.dart';
 import 'package:social_media/feature/main/presentation/widget/home_view_widget/home_view_app_bar.dart';
 import 'package:social_media/feature/main/presentation/widget/home_view_widget/story_list.dart';
+import 'package:social_media/router/app_router_screens_name.dart';
 import '../widget/home_view_widget/post_type_widget/post_with_grid_img.dart';
 import '../widget/home_view_widget/post_type_widget/post_with_slider_img.dart';
 import '../widget/home_view_widget/post_type_widget/post_without_img.dart';
@@ -24,7 +25,10 @@ class HomeView extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: AppWidth.w6),
           child: HomeViewAppBar(
-            onNotificationTaped: () {},
+            onNotificationTaped: () {
+              Navigator.of(context)
+                  .pushNamed(AppRouterScreenNames.notification);
+            },
           ),
         ),
         SizedBox(

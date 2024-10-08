@@ -9,7 +9,7 @@ import 'package:social_media/core/widget/text/app_text_widget.dart';
 import '../../../../../core/resource/app_color.dart';
 
 /**
- * Created by Eng.Eyad AlSayed on 5/14/2024.
+ * Created by Eng.Eyad AlSayed on 10/7/2024.
  */
 
 void showForgetPasswordBottomSheet({required BuildContext context}) {
@@ -20,6 +20,7 @@ void showForgetPasswordBottomSheet({required BuildContext context}) {
       context: context,
       isScrollControlled: true,
       enableDrag: true,
+      backgroundColor: AppColor.white,
       builder: (BuildContext context) {
         return Container(
           padding: EdgeInsets.only(
@@ -39,7 +40,8 @@ void showForgetPasswordBottomSheet({required BuildContext context}) {
               ),
               AppTextWidget(
                 text: "Forget password",
-                fontSize: AppFontSize.fs16,
+                fontSize: AppFontSize.fs17,
+                fontWeight: FontWeight.w600,
               ),
               SizedBox(
                 height: AppHeight.h2,
@@ -49,28 +51,31 @@ void showForgetPasswordBottomSheet({required BuildContext context}) {
                   formKey: formKey,
                   validator: (value) {
                     if ((value ?? "").isEmpty) {
-                      return "emptyField".tr();
+                      return "Empty field";
                     }
                     return null;
                   },
-                  hintText: "username or email address"),
+                  hintText: "Email address"),
               SizedBox(
                 height: AppHeight.h3,
               ),
-              AppButton(
-                color: AppColor.darkBlue,
-                borderRadius: BorderRadius.circular(AppRadius.r20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppTextWidget(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppButton(
+                    width: AppWidth.w80,
+                    height: AppHeight.h6,
+                    color: AppColor.darkBlue,
+                    borderRadius: BorderRadius.circular(AppRadius.r20),
+                    alignment: Alignment.center,
+                    child: AppTextWidget(
                       text: "Submit",
-                      fontSize: AppFontSize.fs15,
+                      fontSize: AppFontSize.fs16,
                       color: AppColor.white,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: AppHeight.h2,

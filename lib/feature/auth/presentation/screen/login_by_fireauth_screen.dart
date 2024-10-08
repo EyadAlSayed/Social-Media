@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:social_media/core/resource/app_font.dart';
+import 'package:social_media/core/resource/app_icon.dart';
 import 'package:social_media/core/resource/app_size.dart';
 import 'package:social_media/core/widget/button/app_button.dart';
 import 'package:social_media/core/widget/form_field/app_form_field.dart';
 import 'package:social_media/core/widget/loading/app_circular_progress_widget.dart';
 import 'package:social_media/core/widget/text/app_text_widget.dart';
+import 'package:social_media/feature/auth/presentation/widget/bottom_sheet/forgot_password_bottom_sheet.dart';
+import 'package:social_media/feature/auth/presentation/widget/dialog/signup_dialog.dart';
+import 'package:social_media/router/app_router_screens_name.dart';
 
 import '../../../../core/resource/app_color.dart';
 import '../../../../core/resource/app_enum.dart';
@@ -42,15 +47,19 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: AppHeight.h10,
+              height: AppHeight.h20,
             ),
-            // Center(
-            //   child: Image.asset(
-            //     AppImage.login,
-            //     width: AppWidth.w52,
-            //     height: AppWidth.w52,
-            //   ),
-            // ),
+            Center(
+              child: SvgPicture.asset(
+                width: AppWidth.w20,
+                height: AppWidth.w20,
+                AppIcon.firebase,
+                colorFilter: ColorFilter.mode(
+                  AppColor.darkBlue,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
             SizedBox(
               height: AppHeight.h2,
             ),
@@ -85,7 +94,6 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
               padding: EdgeInsets.symmetric(horizontal: AppWidth.w5),
               child: AppTextFormField(
                 obscureText: true,
-
                 controller: controllers.last,
                 formKey: keys.last,
                 validator: (value) {
@@ -94,6 +102,7 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                   }
                   return null;
                 },
+                maxLines: 1,
                 textInputType: TextInputType.text,
                 hintText: "Password",
               ),
@@ -105,7 +114,8 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
               width: AppWidth.w80,
               height: AppHeight.h6,
               color: AppColor.darkBlue,
-              borderRadius: BorderRadius.circular(6),
+              alignment: Alignment.center,
+              borderRadius: BorderRadius.circular(AppRadius.r20),
               padding: EdgeInsets.symmetric(horizontal: AppWidth.w5),
               child: AppTextWidget(
                 text: "Login",
@@ -113,7 +123,12 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                 fontSize: AppFontSize.fs17,
                 fontWeight: FontWeight.w600,
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  AppRouterScreenNames.main,
+                  (route) => false,
+                );
+              },
             ),
             SizedBox(
               height: AppHeight.h6,
@@ -131,10 +146,12 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                   width: AppWidth.w1,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showSignUpDialog(context: context);
+                  },
                   child: AppTextWidget(
                     text: "Register",
-                    color: AppColor.darkBlue,
+                    color: AppColor.blue,
                     fontWeight: FontWeight.w600,
                     fontSize: AppFontSize.fs16,
                   ),
@@ -157,10 +174,12 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                   width: AppWidth.w1,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showForgetPasswordBottomSheet(context: context);
+                  },
                   child: AppTextWidget(
                     text: "Reset",
-                    color: AppColor.darkBlue,
+                    color: AppColor.blue,
                     fontWeight: FontWeight.w600,
                     fontSize: AppFontSize.fs16,
                   ),

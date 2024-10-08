@@ -21,4 +21,6 @@ abstract class AppIcon {
   static String call = '$_iconBasePath/call.svg';
   static String logout = '$_iconBasePath/logout.svg';
   static String trash = '$_iconBasePath/trash.svg';
+  static String firebase = '$_iconBasePath/firebase.svg';
+  static String send = '$_iconBasePath/send.svg';
 }

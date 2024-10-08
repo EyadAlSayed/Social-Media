@@ -10,7 +10,7 @@ import '../../../../../core/widget/button/app_button.dart';
 import '../../../../../core/widget/text/app_text_widget.dart';
 
 /**
- * Created by Eng.Eyad AlSayed on 5/27/2024.
+ * Created by Eng.Eyad AlSayed on 10/7/2024.
  */
 
 void showSignUpDialog({required BuildContext context}) {
@@ -39,13 +39,22 @@ void showSignUpDialog({required BuildContext context}) {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: AppHeight.h2,
+            ),
+            AppTextWidget(
+              text: "SignUp",
+              fontSize: AppFontSize.fs17,
+              fontWeight: FontWeight.w600,
+            ),
+            SizedBox(height: AppHeight.h2,),
             AppTextFormField(
               controller: controllers[0],
               formKey: formKeys[0],
               textInputType: TextInputType.emailAddress,
               validator: (value) {
                 if ((value ?? "").isEmpty) {
-                  return "emptyField".tr();
+                  return "Empty field";
                 }
                 return null;
               },
@@ -60,7 +69,7 @@ void showSignUpDialog({required BuildContext context}) {
               hintText: "Password",
               validator: (value) {
                 if ((value ?? "").isEmpty) {
-                  return "emptyField".tr();
+                  return "Empty field";
                 }
                 return null;
               },
@@ -68,20 +77,23 @@ void showSignUpDialog({required BuildContext context}) {
             SizedBox(
               height: AppHeight.h2,
             ),
-            AppButton(
-              color: AppColor.darkBlue,
-              borderRadius: BorderRadius.circular(AppRadius.r20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppTextWidget(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppButton(
+                  width: AppWidth.w80,
+                  height: AppHeight.h6,
+                  color: AppColor.darkBlue,
+                  borderRadius: BorderRadius.circular(AppRadius.r20),
+                  alignment: Alignment.center,
+                  child: AppTextWidget(
                     text: "SignUp",
-                    fontSize: AppFontSize.fs15,
+                    fontSize: AppFontSize.fs16,
                     color: AppColor.white,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                   ),
-                ],
-              ),
+                ),
+              ],
             )
           ],
         ),

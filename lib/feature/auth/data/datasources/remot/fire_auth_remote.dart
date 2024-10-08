@@ -27,9 +27,10 @@ class FireAuthRemoteImplement extends FireAuthRemote {
   @override
   Future<Unit> login(
       {required LoginRequestEntity loginRequestEntity}) async {
-    FireStoreBaseModel model =
-        await FireStoreAddMethod.login(body: loginRequestEntity.toJson());
+    // FireStoreBaseModel model =
+    //     await FireStoreAddMethod.login(body: loginRequestEntity.toJson());
 
+    FireStoreBaseModel model = FireStoreBaseModel();
     if (FireStoreStatusCode.successStatus().contains(model.code)) {
       return Future.value(unit);
     } else {
@@ -41,8 +42,9 @@ class FireAuthRemoteImplement extends FireAuthRemote {
   Future<Unit> forgetPassword(
       {required ForgetPasswordRequestEntity
           forgetPasswordRequestEntity}) async {
-    FireStoreBaseModel model = await FireStoreAddMethod.login(
-        body: forgetPasswordRequestEntity.toJson());
+    // FireStoreBaseModel model = await FireStoreAddMethod.login(
+    //     body: forgetPasswordRequestEntity.toJson());
+    FireStoreBaseModel model = FireStoreBaseModel();
 
     if (FireStoreStatusCode.successStatus().contains(model.code)) {
       return Future.value(unit);
@@ -54,8 +56,9 @@ class FireAuthRemoteImplement extends FireAuthRemote {
   @override
   Future<Unit> logout(
       {required LogoutRequestEntity logoutRequestEntity}) async {
-    FireStoreBaseModel model =
-        await FireStoreAddMethod.login(body: logoutRequestEntity.toJson());
+    // FireStoreBaseModel model =
+    //     await FireStoreAddMethod.login(body: logoutRequestEntity.toJson());
+    FireStoreBaseModel model = FireStoreBaseModel();
 
     if (FireStoreStatusCode.successStatus().contains(model.code)) {
       return Future.value(unit);
@@ -67,8 +70,9 @@ class FireAuthRemoteImplement extends FireAuthRemote {
   @override
   Future<Unit> signUp(
       {required SignupRequestEntity signupRequestEntity}) async {
-    FireStoreBaseModel model =
-        await FireStoreAddMethod.login(body: signupRequestEntity.toJson());
+    // FireStoreBaseModel model =
+    //     await FireStoreAddMethod.login(body: signupRequestEntity.toJson());
+    FireStoreBaseModel model = FireStoreBaseModel();
 
     if (FireStoreStatusCode.successStatus().contains(model.code)) {
       return Future.value(unit);

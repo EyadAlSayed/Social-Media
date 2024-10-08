@@ -26,9 +26,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.darkBlue,
+      backgroundColor: _selectedScreenIndex == 2 ?AppColor.white:AppColor.darkBlue,
       body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 500),
         transitionBuilder: (Widget child, Animation<double> animation) {
           return FadeTransition(opacity: animation, child: child);
         },
@@ -39,6 +39,7 @@ class _MainScreenState extends State<MainScreen> {
             topLeft: Radius.circular(AppRadius.r20),
             topRight: Radius.circular(AppRadius.r20)),
         child: BottomNavigationBar(
+          backgroundColor: AppColor.white,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: BottomNavBarIcon(

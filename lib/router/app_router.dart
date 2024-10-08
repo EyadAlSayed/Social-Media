@@ -6,6 +6,7 @@ import '../core/navigation/fade_builder_route.dart';
 import '../core/widget/page/not_found_page.dart';
 import '../feature/auth/presentation/screen/login_by_fireauth_screen.dart';
 import '../feature/intro/presentation/screen/splash_screen.dart';
+import '../feature/notification/presentation/screen/notification_screen.dart';
 import 'app_router_screens_name.dart';
 /**
  * Created by Eng.Eyad AlSayed on 10/7/2024.
@@ -25,6 +26,8 @@ abstract class AppRouter {
         return FadeBuilderRoute(page: const LoginByFireAuthScreen());
       case AppRouterScreenNames.authType:
         return FadeBuilderRoute(page: const AuthTypeScreen());
+        case AppRouterScreenNames.notification:
+        return FadeBuilderRoute(page: const NotificationScreen());
       default:
         return MaterialPageRoute(builder: (context) => const NotFoundScreen());
 
