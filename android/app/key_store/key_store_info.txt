@@ -1,0 +1,7 @@
+
+file name = sm.jks
+alias = sm
+storepass = sm@test
+keypass = sm@test
+
+keytool -genkey -v -keystore sm.jks -alias sm -keyalg RSA -keysize 2048 -validity 5000 -storepass sm@test -keypass sm@test
