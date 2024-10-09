@@ -3,6 +3,9 @@ import '../helper/network_helper.dart';
 import 'error/network_exception.dart';
 import 'error/network_failures.dart';
 
+/**
+ * Created by Eng.Eyad AlSayed on 10/7/2024.
+ */
 
 
 class Connector<T> {

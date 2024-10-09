@@ -40,7 +40,6 @@ abstract class FireStoreGetMethod {
 }
 
 abstract class FireStoreAddMethod {
-  static final FirebaseFirestore _instance = FirebaseFirestore.instance;
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   static Future<FireStoreBaseModel> signUp(
@@ -64,12 +63,6 @@ abstract class FireStoreAddMethod {
           email: body['email'] ?? "",
           password: body['password'] ?? "",
         );
-
-        print(userCredential.user);
-        print(userCredential.credential?.token);
-        print(userCredential.credential?.accessToken??"");
-        print(userCredential.user?.email??"");
-        print(userCredential.user?.phoneNumber??"");
       },
     );
   }
@@ -91,6 +84,7 @@ abstract class FireStoreDeleteMethod {
 
   static Future<FireStoreBaseModel> deleteUser(
       {required Map<String, dynamic> body}) async {
+    // TODO handle delete user using firebase auth remote functionality
     FireStoreBaseModel model = FireStoreBaseModel();
 
     try {

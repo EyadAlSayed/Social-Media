@@ -5,6 +5,9 @@ import '../../resource/app_color.dart';
 import '../../resource/app_font.dart';
 import '../../resource/app_icon.dart';
 import '../../resource/app_size.dart';
+/**
+ * Created by Eng.Eyad AlSayed on 10/7/2024.
+ */
 
 abstract class NoteMessage {
   static showErrorSnackBar({

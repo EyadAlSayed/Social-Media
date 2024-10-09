@@ -23,8 +23,6 @@ class FireAuthRemoteImplement extends FireAuthRemote {
   Future<Unit> login({required LoginRequestEntity loginRequestEntity}) async {
     FireStoreBaseModel model =
         await FireStoreAddMethod.login(body: loginRequestEntity.toJson());
-
-    print(model.data);
     if (FireStoreStatusCode.successStatus().contains(model.code)) {
       return Future.value(unit);
     } else {
@@ -38,7 +36,6 @@ class FireAuthRemoteImplement extends FireAuthRemote {
           forgetPasswordRequestEntity}) async {
     FireStoreBaseModel model = await FireStoreAddMethod.forgotPassword(
         body: forgetPasswordRequestEntity.toJson());
-
     if (FireStoreStatusCode.successStatus().contains(model.code)) {
       return Future.value(unit);
     } else {

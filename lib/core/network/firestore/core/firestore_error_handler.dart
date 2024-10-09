@@ -100,8 +100,6 @@ String handleFirebaseError({required FirebaseException exception}) {
 }
 
 String handleFirebaseAuthError({required FirebaseException exception}) {
-  print("EYAD");
-  print(exception.message);
   switch (exception.code) {
     case "user-not-found":
       return "no user found for that email";
