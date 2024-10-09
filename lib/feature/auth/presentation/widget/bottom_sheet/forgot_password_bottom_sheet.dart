@@ -24,108 +24,102 @@ void showForgetPasswordBottomSheet({required BuildContext context}) {
   TextEditingController controller = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Widget bottomSheet = Container(
-    padding: EdgeInsets.only(
-        left: AppWidth.w5,
-        right: AppWidth.w5,
-        bottom: MediaQuery.of(context).viewInsets.bottom),
-    decoration: const BoxDecoration(
-        color: AppColor.white,
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(15), topLeft: Radius.circular(15))),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          height: AppHeight.h2,
-        ),
-        AppTextWidget(
-          text: "Forget password",
-          fontSize: AppFontSize.fs17,
-          fontWeight: FontWeight.w600,
-        ),
-        SizedBox(
-          height: AppHeight.h2,
-        ),
-        AppTextFormField(
-            controller: controller,
-            formKey: formKey,
-            textInputType: TextInputType.emailAddress,
-            validator: (value) {
-              if ((value ?? "").isEmpty) {
-                return "Empty field";
-              }
-              if ((value ?? "").isEmailValid() == false) {
-                return "Enter valid email please";
-              }
-              return null;
-            },
-            hintText: "Email address"),
-        SizedBox(
-          height: AppHeight.h3,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+  Dialog dialog = Dialog(
+    backgroundColor: AppColor.white,
+    surfaceTintColor: AppColor.white,
+    insetPadding: EdgeInsets.symmetric(horizontal: AppWidth.w3point8),
+    child: SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: AppWidth.w3point8, vertical: AppHeight.h2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            BlocConsumer<FireAuthForgetPasswordCubit,
-                FireAuthForgetPasswordState>(
-              listener: (context, state) {
-                if (state.status == CubitStatus.error) {
-                  Navigator.of(context).pop();
-                  NoteMessage.showErrorSnackBar(
-                      context: context, text: state.error ?? "");
-                }
-                if (state.status == CubitStatus.success) {
-                  Navigator.of(context).pop();
-                  NoteMessage.showSuccessSnackBar(
-                      context: context, text: "Your request sent successfully");
-                }
-              },
-              builder: (context, state) {
-                if (state.status == CubitStatus.loading) {
-                  return AppCircularProgressWidget();
-                }
-                return AppButton(
-                  width: AppWidth.w80,
-                  height: AppHeight.h6,
-                  color: AppColor.darkBlue,
-                  borderRadius: BorderRadius.circular(AppPixel.p20),
-                  alignment: Alignment.center,
-                  child: AppTextWidget(
-                    text: "Submit",
-                    fontSize: AppFontSize.fs16,
-                    color: AppColor.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  onTap: () {
-                    if (formKey.currentState?.validate() ?? false) {
-                      context
-                          .read<FireAuthForgetPasswordCubit>()
-                          .forgetPassword(
-                              entity: ForgetPasswordRequestEntity(
-                                  email: controller.text));
+            SizedBox(
+              height: AppHeight.h2,
+            ),
+            AppTextWidget(
+              text: "Forget password",
+              fontSize: AppFontSize.fs17,
+              fontWeight: FontWeight.w600,
+            ),
+            SizedBox(
+              height: AppHeight.h2,
+            ),
+            AppTextFormField(
+                controller: controller,
+                formKey: formKey,
+                textInputType: TextInputType.emailAddress,
+                validator: (value) {
+                  if ((value ?? "").isEmpty) {
+                    return "Empty field";
+                  }
+                  if ((value ?? "").isEmailValid() == false) {
+                    return "Enter valid email please";
+                  }
+                  return null;
+                },
+                hintText: "Email address"),
+            SizedBox(
+              height: AppHeight.h3,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BlocConsumer<FireAuthForgetPasswordCubit,
+                    FireAuthForgetPasswordState>(
+                  listener: (context, state) {
+                    if (state.status == CubitStatus.error) {
+                      Navigator.of(context).pop();
+                      NoteMessage.showErrorSnackBar(
+                          context: context, text: state.error ?? "");
+                    }
+                    if (state.status == CubitStatus.success) {
+                      Navigator.of(context).pop();
+                      NoteMessage.showSuccessSnackBar(
+                          context: context,
+                          text: "Your request sent successfully");
                     }
                   },
-                );
-              },
+                  builder: (context, state) {
+                    if (state.status == CubitStatus.loading) {
+                      return AppCircularProgressWidget();
+                    }
+                    return AppButton(
+                      width: AppWidth.w80,
+                      height: AppHeight.h6,
+                      color: AppColor.darkBlue,
+                      borderRadius: BorderRadius.circular(AppPixel.p20),
+                      alignment: Alignment.center,
+                      child: AppTextWidget(
+                        text: "Submit",
+                        fontSize: AppFontSize.fs16,
+                        color: AppColor.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      onTap: () {
+                        if (formKey.currentState?.validate() ?? false) {
+                          context
+                              .read<FireAuthForgetPasswordCubit>()
+                              .forgetPassword(
+                                  entity: ForgetPasswordRequestEntity(
+                                      email: controller.text));
+                        }
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
-        SizedBox(
-          height: AppHeight.h2,
-        ),
-      ],
+      ),
     ),
   );
-
-  showModalBottomSheet(
+  showDialog(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: AppColor.white,
-      builder: (BuildContext context) {
-        return BlocProvider(
-            create: (context) => getIt<FireAuthForgetPasswordCubit>(),
-            child: bottomSheet);
-      });
+      builder: (context) => BlocProvider(
+          create: (context) => getIt<FireAuthForgetPasswordCubit>(),
+          child: dialog));
 }

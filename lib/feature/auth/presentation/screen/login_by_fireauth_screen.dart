@@ -43,6 +43,7 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColor.white,
       body: SingleChildScrollView(
         child: Column(
