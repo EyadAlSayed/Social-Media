@@ -9,8 +9,17 @@ abstract class AppKey {
 
 
   /// app shared preferences keys
-  static const String isLoggedIn = "isLoggedIn";
+  static const String isLoggedIn = "is-logged-in";
   static const String language = "language";
 
+
+  // hive key
+
+  // box key
+  static const String homeBox = "home-box";
+
+  // save key
+  static const String homePosts = "home-post";
+  static const String homeStories = "home-stories";
 
 }

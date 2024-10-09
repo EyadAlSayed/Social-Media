@@ -1,46 +1,42 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firestore_base_model.dart';
 import 'firestore_error_handler.dart';
 
 /**
-   * Created by Eng.Eyad AlSayed on 10/7/2024.
-   */
+ * Created by Eng.Eyad AlSayed on 10/7/2024.
+ */
 
 abstract class FireStoreCollectionName {
-  static const String signUp = "signUp";
-  static const String login = "login";
-  static const String forgotPassword = "forgot-password";
-  static const String info = "info";
-  static const String appConfig = "app-config";
-  static const String messages = "messages";
-  static const String booking = "booking";
-  static const String favorite = "favorite";
-  static const String businessMessage = "business-message";
+  static const String home = "home";
 }
 
 abstract class FireStoreDocumentName {
-  static const String aboutUs = "about-us";
-  static const String privacyPolicy = "privacy-policy";
-  static const String contactUs = "contact-us";
-  static const String places = "places";
-  static const String home = "home";
-  static const String activities = "activities";
-  static const String activityViews = "activity-views";
-  static const String offers = "offers";
-  static const String notification = "notification";
-  static const String subActivities = "sub-activities";
-  static const String subActivityAds = "ads";
-  static const String launchType = "launch-type";
-  static const String signUpEmail = "signup-email";
-  static const String signUpPhone = "signup-phone";
+  static const String story = "story";
+  static const String homePosts = "home_posts";
 }
 
 abstract class FireStoreGetMethod {
   static final FirebaseFirestore _instance = FirebaseFirestore.instance;
 
+  static Future<FireStoreBaseModel> getHomePosts() {
+    return FireStoreGetMethodErrorHandler.handleError(call: () async {
+      return await _instance
+          .collection(FireStoreCollectionName.home)
+          .doc(FireStoreDocumentName.homePosts)
+          .get();
+    });
+  }
+
+  static Future<FireStoreBaseModel> getStoryPosts() {
+    return FireStoreGetMethodErrorHandler.handleError(call: () async {
+      return await _instance
+          .collection(FireStoreCollectionName.home)
+          .doc(FireStoreDocumentName.story)
+          .get();
+    });
+  }
 }
 
 abstract class FireStoreAddMethod {
@@ -68,6 +64,12 @@ abstract class FireStoreAddMethod {
           email: body['email'] ?? "",
           password: body['password'] ?? "",
         );
+
+        print(userCredential.user);
+        print(userCredential.credential?.token);
+        print(userCredential.credential?.accessToken??"");
+        print(userCredential.user?.email??"");
+        print(userCredential.user?.phoneNumber??"");
       },
     );
   }

@@ -32,7 +32,7 @@ class SettingsItem extends StatelessWidget {
 
       onTap: onTap,
       child: DecoratedContainer(
-        borderRadius: BorderRadius.circular(AppRadius.r15),
+        borderRadius: BorderRadius.circular(AppPixel.p15),
         padding: EdgeInsets.all(AppWidth.w5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

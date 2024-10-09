@@ -64,7 +64,7 @@ class AppButton extends StatelessWidget {
               : null,
           color: outLinedBorder == true ? AppColor.white : color,
           borderRadius:
-              borderRadius ?? BorderRadius.circular(AppRadius.r3),
+              borderRadius ?? BorderRadius.circular(AppPixel.p3),
         ),
         child: child,
       ),

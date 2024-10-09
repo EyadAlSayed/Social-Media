@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:social_media/core/resource/app_constant.dart';
 import 'package:social_media/core/resource/app_image.dart';
 
 import 'package:social_media/core/widget/image/app_image_widget.dart';
@@ -34,7 +35,7 @@ class UserProfileInfo extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: const AppImageWidget(
-                imagePath: AppImage.person,
+                imageUrl: AppConstant.userImageUrl,
               ),
             ),
             SizedBox(
@@ -63,13 +64,8 @@ class UserProfileInfo extends StatelessWidget {
             ),
           ],
         ),
-        InkWell(
-          overlayColor:
-              const MaterialStatePropertyAll(AppColor.transparent),
-          onTap: onEditClicked,
-          child: SvgPicture.asset(
-            AppIcon.edit,
-          ),
+        SvgPicture.asset(
+          AppIcon.edit,
         ),
       ],
     );

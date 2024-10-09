@@ -1,6 +1,6 @@
-# soical_media
+# social_media
 
-Soical Media Project.
+Social Media Project.
 
 ## Getting Started
 

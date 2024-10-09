@@ -108,9 +108,8 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           filled: widget.filled ?? true,
           fillColor: widget.fillColor ?? AppColor.white,
           hintText: widget.hintText,
-          suffixIcon: widget.passwordMode == false
-              ? widget.suffixIcon
-              : IconButton(
+          suffixIcon: widget.passwordMode == true
+              ? IconButton(
                   icon: Icon(
                     color: AppColor.darkBlue,
                     _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -120,7 +119,8 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                       _obscureText = !_obscureText;
                     });
                   },
-                ),
+                )
+              : widget.suffixIcon,
           prefixIcon: widget.prefixIcon,
           hintStyle: widget.hintStyle,
           prefixIconColor: Colors.grey,
@@ -142,7 +142,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
               borderRadius: BorderRadius.all(Radius.circular(
                   widget.borderRadius != null
                       ? widget.borderRadius!
-                      : AppRadius.r10)),
+                      : AppPixel.p10)),
               borderSide: BorderSide(
                 color: AppColor.grey.withOpacity(0.6),
               )),
@@ -150,7 +150,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
               borderRadius: BorderRadius.all(Radius.circular(
                   widget.borderRadius != null
                       ? widget.borderRadius!
-                      : AppRadius.r10)),
+                      : AppPixel.p10)),
               borderSide: const BorderSide(
                 color: Colors.transparent,
                 // color: Colors.transparent,
@@ -159,7 +159,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
               borderRadius: BorderRadius.all(Radius.circular(
                   widget.borderRadius != null
                       ? widget.borderRadius!
-                      : AppRadius.r10)),
+                      : AppPixel.p10)),
               borderSide: BorderSide(
                 color: AppColor.grey.withOpacity(0.6),
               )),
@@ -167,7 +167,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
               borderRadius: BorderRadius.all(Radius.circular(
                   widget.borderRadius != null
                       ? widget.borderRadius!
-                      : AppRadius.r10)),
+                      : AppPixel.p10)),
               borderSide: BorderSide(
                 color: Theme.of(context).primaryColor,
               )),

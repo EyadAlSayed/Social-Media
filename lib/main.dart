@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:social_media/core/helper/hive_hepler.dart';
 import 'app/soical_media_app.dart';
 import 'core/helper/app_info_helper.dart';
 import 'core/injection/injection_container.dart';
@@ -18,14 +19,14 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await initDI();
   await PackageInfo.fromPlatform().then((value) {
     AppInfoHelper.packageInfo = value;
   });
-
+  await HiveHelper.init();
   SharedPreferences shPref = await SharedPreferences.getInstance();
   AppSharedPreferences.init(shPref);
 

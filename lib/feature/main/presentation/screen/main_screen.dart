@@ -49,8 +49,8 @@ class _MainScreenState extends State<MainScreen> {
         ),
         bottomNavigationBar: ClipRRect(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(AppRadius.r20),
-              topRight: Radius.circular(AppRadius.r20)),
+              topLeft: Radius.circular(AppPixel.p20),
+              topRight: Radius.circular(AppPixel.p20)),
           child: BottomNavigationBar(
             backgroundColor: AppColor.white,
             items: <BottomNavigationBarItem>[

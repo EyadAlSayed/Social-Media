@@ -37,11 +37,11 @@ void showSignUpDialog({required BuildContext context}) {
   Dialog dialog = Dialog(
     backgroundColor: AppColor.white,
     surfaceTintColor: AppColor.white,
-    insetPadding: EdgeInsets.symmetric(horizontal: AppWidth.w3Point8),
+    insetPadding: EdgeInsets.symmetric(horizontal: AppWidth.w3point8),
     child: SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: AppWidth.w3Point8, vertical: AppHeight.h2),
+            horizontal: AppWidth.w3point8, vertical: AppHeight.h2),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,7 @@ void showSignUpDialog({required BuildContext context}) {
                 }
                 return null;
               },
-              hintText: "Email",
+              hintText: "Email address",
             ),
             SizedBox(
               height: AppHeight.h2,
@@ -80,6 +80,7 @@ void showSignUpDialog({required BuildContext context}) {
               controller: controllers.last,
               formKey: formKeys.last,
               hintText: "Password",
+              maxLines: 1,
               validator: (value) {
                 if ((value ?? "").isEmpty) {
                   return "Empty field";
@@ -102,7 +103,7 @@ void showSignUpDialog({required BuildContext context}) {
                     }
                     if (state.status == CubitStatus.success) {
                       Navigator.of(context).pop();
-                      NoteMessage.showErrorSnackBar(
+                      NoteMessage.showSuccessSnackBar(
                           context: context,
                           text: "Your request sent successfully");
                     }
@@ -115,7 +116,7 @@ void showSignUpDialog({required BuildContext context}) {
                       width: AppWidth.w80,
                       height: AppHeight.h6,
                       color: AppColor.darkBlue,
-                      borderRadius: BorderRadius.circular(AppRadius.r20),
+                      borderRadius: BorderRadius.circular(AppPixel.p20),
                       alignment: Alignment.center,
                       child: AppTextWidget(
                         text: "SignUp",

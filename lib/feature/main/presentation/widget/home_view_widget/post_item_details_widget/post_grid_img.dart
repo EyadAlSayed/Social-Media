@@ -7,32 +7,39 @@ import 'package:social_media/core/widget/image/app_image_widget.dart';
  */
 
 class PostGridImage extends StatelessWidget {
-  const PostGridImage({super.key});
+  const PostGridImage({super.key, required this.images});
+
+  final List<String> images;
 
   @override
   Widget build(BuildContext context) {
+    if (images.length < 3) return SizedBox();
     return Row(
       children: [
         Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppRadius.r20)),
+          decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(AppPixel.p20)),
           width: AppWidth.w42,
           height: AppHeight.h38,
-          child: AppImageWidget(),
+          child: AppImageWidget(
+            imageUrl: images[0],
+          ),
         ),
         SizedBox(
-          width: AppWidth.w1Point5,
+          width: AppWidth.w1point5,
         ),
         Column(
           children: [
             Container(
               clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppRadius.r20)),
+                  borderRadius: BorderRadius.circular(AppPixel.p20)),
               width: AppWidth.w42,
-              height: AppHeight.h18Point5,
-              child: AppImageWidget(),
+              height: AppHeight.h18point5,
+              child: AppImageWidget(
+                imageUrl: images[1],
+              ),
             ),
             SizedBox(
               height: AppHeight.h1,
@@ -40,10 +47,12 @@ class PostGridImage extends StatelessWidget {
             Container(
               clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppRadius.r20)),
+                  borderRadius: BorderRadius.circular(AppPixel.p20)),
               width: AppWidth.w42,
               height: AppHeight.h18,
-              child: AppImageWidget(),
+              child: AppImageWidget(
+                imageUrl: images[2],
+              ),
             ),
           ],
         ),

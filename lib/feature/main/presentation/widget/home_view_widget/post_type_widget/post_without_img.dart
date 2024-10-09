@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/core/resource/app_color.dart';
 import 'package:social_media/core/resource/app_size.dart';
+import '../../../../domain/entities/response/home_posts_response_entity.dart';
 import '../post_item_details_widget/post_button.dart';
 import '../post_item_details_widget/post_header.dart';
 import '../post_item_details_widget/post_tagged_text.dart';
@@ -10,16 +11,23 @@ import '../post_item_details_widget/post_tagged_text.dart';
  */
 
 class PostWithOutImage extends StatelessWidget {
-  const PostWithOutImage({super.key});
+  const PostWithOutImage(
+      {super.key,
+      required this.post,
+      required this.itemIndex,
+      required this.posts});
+
+  final Posts? post;
+  final List<Posts> posts;
+  final int itemIndex;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: AppWidth.w3Point5,
-          vertical: AppHeight.h1point5),
+          horizontal: AppWidth.w3point5, vertical: AppHeight.h1point5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppRadius.r20),
+          borderRadius: BorderRadius.circular(AppPixel.p20),
           color: AppColor.white,
           boxShadow: [
             BoxShadow(
@@ -31,14 +39,16 @@ class PostWithOutImage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PostHeader(),
+          PostHeader(
+            userName: post?.userName ?? '',
+            taggedUser: post?.taggedUser ?? "",
+            userImage: post?.userImage ?? "",
+            createdAt: post?.createdAt ?? "",
+          ),
           SizedBox(
             height: AppHeight.h1point5,
           ),
-          PostTaggedText(
-            text:
-                "Stopped by @zoesugg today with goosey girl to see @kyliecosmetics & @kylieskin 💕 wow what a dream!!!!!!!!It’s the best experience we have!",
-          ),
+          PostTaggedText(text: post?.postText ?? ""),
           SizedBox(
             height: AppHeight.h1point5,
           ),
@@ -48,11 +58,16 @@ class PostWithOutImage extends StatelessWidget {
           SizedBox(
             height: AppHeight.h1point5,
           ),
-          PostButton()
+          PostButton(
+            isLike: post?.isLike ?? false,
+            comments: post?.comments ?? [],
+            posts: posts,
+            itemIndex: itemIndex,
+            totalComments: post?.totalComments,
+            totalLikes: post?.totalLikes,
+          )
         ],
       ),
     );
   }
 }
-
-

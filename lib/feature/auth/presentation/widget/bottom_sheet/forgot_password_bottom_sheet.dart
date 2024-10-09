@@ -51,6 +51,7 @@ void showForgetPasswordBottomSheet({required BuildContext context}) {
         AppTextFormField(
             controller: controller,
             formKey: formKey,
+            textInputType: TextInputType.emailAddress,
             validator: (value) {
               if ((value ?? "").isEmpty) {
                 return "Empty field";
@@ -77,7 +78,7 @@ void showForgetPasswordBottomSheet({required BuildContext context}) {
                 }
                 if (state.status == CubitStatus.success) {
                   Navigator.of(context).pop();
-                  NoteMessage.showErrorSnackBar(
+                  NoteMessage.showSuccessSnackBar(
                       context: context, text: "Your request sent successfully");
                 }
               },
@@ -89,7 +90,7 @@ void showForgetPasswordBottomSheet({required BuildContext context}) {
                   width: AppWidth.w80,
                   height: AppHeight.h6,
                   color: AppColor.darkBlue,
-                  borderRadius: BorderRadius.circular(AppRadius.r20),
+                  borderRadius: BorderRadius.circular(AppPixel.p20),
                   alignment: Alignment.center,
                   child: AppTextWidget(
                     text: "Submit",
@@ -121,7 +122,6 @@ void showForgetPasswordBottomSheet({required BuildContext context}) {
   showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      enableDrag: true,
       backgroundColor: AppColor.white,
       builder: (BuildContext context) {
         return BlocProvider(

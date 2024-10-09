@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/feature/auth/presentation/widget/dialog/signup_dialog.dart';
+import 'package:social_media/feature/main/presentation/widget/profile/dialog/log_out_dialog.dart';
 
 import '../../../../core/helper/app_info_helper.dart';
 import '../../../../core/resource/app_color.dart';
@@ -20,7 +22,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppWidth.w3Point8),
+      padding: EdgeInsets.symmetric(horizontal: AppWidth.w3point8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -58,8 +60,10 @@ class ProfileView extends StatelessWidget {
                 fontSize: AppFontSize.fs14,
               ),
               SettingsItem(
-                onTap: () {},
-                title: "Sign out",
+                onTap: () {
+                  showLogOutDialog(context: context);
+                },
+                title: "Logout",
                 icon: AppIcon.logout,
               ),
               SettingsItem(

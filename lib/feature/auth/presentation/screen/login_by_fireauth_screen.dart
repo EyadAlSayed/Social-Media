@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:social_media/core/helper/validation_helper.dart';
 import 'package:social_media/core/resource/app_font.dart';
 import 'package:social_media/core/resource/app_icon.dart';
 import 'package:social_media/core/resource/app_size.dart';
@@ -9,15 +10,12 @@ import 'package:social_media/core/widget/form_field/app_form_field.dart';
 import 'package:social_media/core/widget/loading/app_circular_progress_widget.dart';
 import 'package:social_media/core/widget/text/app_text_widget.dart';
 import 'package:social_media/feature/auth/domain/entities/request/login_request_entity.dart';
-import 'package:social_media/feature/auth/presentation/cubit/fire_auth_log_out_cubit/fire_auth_log_out_cubit.dart';
 import 'package:social_media/feature/auth/presentation/cubit/fire_auth_login_cubit/fire_auth_login_cubit.dart';
 import 'package:social_media/feature/auth/presentation/widget/bottom_sheet/forgot_password_bottom_sheet.dart';
 import 'package:social_media/feature/auth/presentation/widget/dialog/signup_dialog.dart';
 import 'package:social_media/router/app_router_screens_name.dart';
-
 import '../../../../core/resource/app_color.dart';
 import '../../../../core/resource/app_enum.dart';
-import '../../../../core/resource/app_image.dart';
 import '../../../../core/widget/snack_bar/note_message.dart';
 
 /**
@@ -84,12 +82,15 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                 formKey: keys.first,
                 validator: (value) {
                   if ((value ?? "").isEmpty) {
-                    return "error";
+                    return "Empty field";
+                  }
+                  if ((value ?? "").isEmailValid() == false) {
+                    return "Enter valid email please";
                   }
                   return null;
                 },
                 textInputType: TextInputType.emailAddress,
-                hintText: "Email",
+                hintText: "Email address",
               ),
             ),
             SizedBox(
@@ -103,7 +104,7 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                 formKey: keys.last,
                 validator: (value) {
                   if ((value ?? "").isEmpty) {
-                    return "error";
+                    return "Empty field";
                   }
                   return null;
                 },
@@ -124,7 +125,7 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                 if (state.status == CubitStatus.success) {
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     AppRouterScreenNames.main,
-                        (route) => false,
+                    (route) => false,
                   );
                 }
               },
@@ -137,7 +138,7 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                   height: AppHeight.h6,
                   color: AppColor.darkBlue,
                   alignment: Alignment.center,
-                  borderRadius: BorderRadius.circular(AppRadius.r20),
+                  borderRadius: BorderRadius.circular(AppPixel.p20),
                   padding: EdgeInsets.symmetric(horizontal: AppWidth.w5),
                   child: AppTextWidget(
                     text: "Login",
@@ -146,12 +147,11 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                   onTap: () {
-                    if(isValidInput() == true) {
+                    if (isValidInput() == true) {
                       context.read<FireAuthLoginCubit>().login(
-                        entity: LoginRequestEntity(
-                            email: controllers.first.text,
-                            password: controllers.last.text
-                        ));
+                          entity: LoginRequestEntity(
+                              email: controllers.first.text,
+                              password: controllers.last.text));
                     }
                   },
                 );
@@ -164,7 +164,7 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppTextWidget(
-                  text: "You dont have account",
+                  text: "You don't have account ?",
                   color: AppColor.darkBlue,
                   fontWeight: FontWeight.w600,
                   fontSize: AppFontSize.fs16,
@@ -192,7 +192,7 @@ class _LoginByFireAuthScreenState extends State<LoginByFireAuthScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppTextWidget(
-                  text: "Did you forget password",
+                  text: "Did you forget password ?",
                   color: AppColor.darkBlue,
                   fontWeight: FontWeight.w600,
                   fontSize: AppFontSize.fs16,

@@ -54,7 +54,7 @@ class DecoratedContainer extends StatelessWidget {
         image: image,
         borderRadius: shape == BoxShape.circle
             ? null
-            : borderRadius ?? BorderRadius.circular(AppRadius.r3),
+            : borderRadius ?? BorderRadius.circular(AppPixel.p3),
         boxShadow: boxShadow ??
             [
               const BoxShadow(

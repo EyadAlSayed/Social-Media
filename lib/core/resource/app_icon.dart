@@ -9,6 +9,7 @@ abstract class AppIcon {
   static String compass = '$_iconBasePath/compass.svg';
   static String download = '$_iconBasePath/download.svg';
   static String heart = '$_iconBasePath/heart.svg';
+  static String filledHeart = '$_iconBasePath/filled_heart.svg';
   static String home = '$_iconBasePath/home.svg';
   static String notification = '$_iconBasePath/notification.svg';
   static String profile = '$_iconBasePath/profile.svg';

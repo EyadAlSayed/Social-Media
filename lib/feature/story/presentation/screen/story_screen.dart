@@ -12,64 +12,81 @@ import 'package:social_media/core/widget/text/app_text_widget.dart';
 import 'package:social_media/feature/main/presentation/widget/home_view_widget/post_item_details_widget/post_widget.dart';
 import 'package:story_time/story_page_view/story_page_view.dart';
 
+import '../../../main/domain/entities/response/home_story_response_entity.dart';
+
 /**
  * Created by Eng.Eyad AlSayed on 10/7/2024.
  */
 
+class StoryArgs {
+  final Stories story;
+
+  StoryArgs({required this.story});
+}
+
 class StoryScreen extends StatefulWidget {
-  const StoryScreen({super.key});
+  const StoryScreen({super.key, required this.args});
+
+  final StoryArgs args;
 
   @override
   State<StoryScreen> createState() => _StoryScreenState();
 }
 
 class _StoryScreenState extends State<StoryScreen> {
+  bool isLike = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
       children: [
         StoryPageView(
+          onPageBack: (newPageIndex) {
+            Navigator.of(context).pop();
+          },
+          onPageForward: (newPageIndex) {
+            Navigator.of(context).pop();
+          },
           itemBuilder: (context, pageIndex, storyIndex) {
             return AppImageWidget(
-              imageUrl:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmCy16nhIbV3pI1qLYHMJKwbH2458oiC9EmA&s",
-            );
+                imageUrl: widget.args.story.storyImages?[storyIndex] ?? "");
           },
           storyLength: (pageIndex) {
-            return 3;
+            return widget.args.story.storyImages?.length ?? 0;
           },
-          pageLength: 2,
+          pageLength: 1,
         ),
         Container(
           margin: EdgeInsets.only(
-              left: AppWidth.w5,
-              right: AppWidth.w5,
-              top: AppHeight.h5point2),
+              left: AppWidth.w5, right: AppWidth.w5, top: AppHeight.h5point2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppWidth.w4,
-                        vertical: AppHeight.h1point5),
-                    decoration: BoxDecoration(
-                        color: AppColor.offWhite,
-                        borderRadius:
-                            BorderRadius.circular(AppRadius.r10)),
-                    child: SvgPicture.asset(
-                      AppIcon.arrowRight,
-
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppWidth.w4,
+                          vertical: AppHeight.h1point5),
+                      decoration: BoxDecoration(
+                          color: AppColor.offWhite,
+                          borderRadius: BorderRadius.circular(AppPixel.p10)),
+                      child: SvgPicture.asset(
+                        AppIcon.arrowRight,
+                      ),
                     ),
                   ),
                   SizedBox(
                     width: AppWidth.w2,
                   ),
                   AppTextWidget(
-                    text: "Mariano Di Vaio",
+                    text: widget.args.story.userName ?? "",
                     fontSize: AppFontSize.fs16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -77,7 +94,7 @@ class _StoryScreenState extends State<StoryScreen> {
                     width: AppWidth.w2,
                   ),
                   AppTextWidget(
-                    text: "17m",
+                    text: widget.args.story.createdAt ?? "",
                     fontSize: AppFontSize.fs16,
                     fontWeight: FontWeight.w600,
                     color: AppColor.offWhite,
@@ -88,26 +105,32 @@ class _StoryScreenState extends State<StoryScreen> {
             ],
           ),
         ),
-        Positioned(
-          top: AppHeight.h64,
-          left: AppWidth.w50,
-          child: Container(
-            width: AppWidth.w29,
-            child: PostTag(),
+        if ((widget.args.story.storyTags ?? []).isNotEmpty)
+          Positioned(
+            top: AppHeight.h64,
+            left: AppWidth.w50,
+            child: PostTag(
+              tag: widget.args.story.storyTags?.first ?? "",
+            ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.only(
-              left: AppWidth.w5,
-              right: AppWidth.w5,
-              bottom: AppHeight.h5point2),
-          alignment: Alignment.bottomRight,
-          child: SvgPicture.asset(
-            width: 26.px,
-            height: 26.px,
-            AppIcon.heart,
-            colorFilter:
-                ColorFilter.mode(AppColor.white, BlendMode.srcIn),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              isLike = !isLike;
+            });
+          },
+          child: Container(
+            margin: EdgeInsets.only(
+                left: AppWidth.w5,
+                right: AppWidth.w5,
+                bottom: AppHeight.h5point2),
+            alignment: Alignment.bottomRight,
+            child: SvgPicture.asset(
+              width: AppPixel.p26,
+              height: AppPixel.p26,
+              isLike == false ? AppIcon.heart : AppIcon.filledHeart,
+              colorFilter: ColorFilter.mode(AppColor.white, BlendMode.srcIn),
+            ),
           ),
         )
       ],

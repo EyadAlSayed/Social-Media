@@ -51,9 +51,9 @@ class _PostSlidImageState extends State<PostSlidImage> {
                 width: AppWidth.w92,
                 margin: EdgeInsets.symmetric(horizontal: AppWidth.w1),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(AppRadius.r15)),
+                    borderRadius: BorderRadius.circular(AppPixel.p15)),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: AppImageWidget());
+                child: AppImageWidget(imageUrl: item,));
           }).toList(),
         ),
         SizedBox(
@@ -66,11 +66,11 @@ class _PostSlidImageState extends State<PostSlidImage> {
             position: selectedPage,
             decorator: DotsDecorator(
               spacing: EdgeInsets.only(
-                  left: AppWidth.w1Point8,
-                  right: AppWidth.w1Point8),
+                  left: AppWidth.w1point8,
+                  right: AppWidth.w1point8),
               activeShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
-                  AppRadius.r10,
+                  AppPixel.p10,
                 ),
               ),
               activeSize: Size(
@@ -78,8 +78,8 @@ class _PostSlidImageState extends State<PostSlidImage> {
                 AppHeight.h08,
               ),
               size: Size(
-                AppWidth.w1Point5,
-                AppWidth.w1Point5,
+                AppWidth.w1point5,
+                AppWidth.w1point5,
               ),
               activeColor: AppColor.white,
               color: AppColor.white,

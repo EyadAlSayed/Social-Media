@@ -31,7 +31,7 @@ class HomeViewAppBar extends StatelessWidget {
           letterSpacing: 1.5,
         ),
         SizedBox(
-          width: AppWidth.w3Point8,
+          width: AppWidth.w3point8,
         )
       ],
     );

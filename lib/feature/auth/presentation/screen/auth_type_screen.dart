@@ -46,7 +46,7 @@ class AuthTypeScreen extends StatelessWidget {
               AppButton(
                 height: AppHeight.h7,
                 width: AppWidth.w80,
-                borderRadius: BorderRadius.circular(AppRadius.r20),
+                borderRadius: BorderRadius.circular(AppPixel.p20),
                 borderColor: AppColor.darkBlue,
                 outLinedBorder: true,
                 color: AppColor.white,

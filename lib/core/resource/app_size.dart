@@ -3,22 +3,24 @@ import 'package:responsive_sizer/responsive_sizer.dart';
  * Created by Eng.Eyad AlSayed on 10/7/2024.
  */
 
-abstract class AppRadius {
-  static double r3 = 3.px;
-  static double r10 = 10.px;
-  static double r15 = 15.px;
-  static double r20 = 20.px;
-  static double r40 = 40.px;
+abstract class AppPixel {
+  static double p2point8 = 2.8.px;
+  static double p3 = 3.px;
+  static double p10 = 10.px;
+  static double p15 = 15.px;
+  static double p20 = 20.px;
+  static double p26 = 26.px;
+  static double p40 = 40.px;
 }
 
 abstract class AppWidth {
   static double w1 = 1.w;
   static double w2 = 2.w;
-  static double w1Point5 = 1.5.w;
-  static double w1Point8 = 1.8.w;
+  static double w1point5 = 1.5.w;
+  static double w1point8 = 1.8.w;
   static double w3 = 3.w;
-  static double w3Point5 = 3.5.w;
-  static double w3Point8 = 3.8.w;
+  static double w3point5 = 3.5.w;
+  static double w3point8 = 3.8.w;
   static double w4 = 4.w;
   static double w5 = 5.w;
   static double w6 = 6.w;
@@ -56,7 +58,7 @@ abstract class AppHeight {
   static double h8 = 8.h;
   static double h10 = 10.h;
   static double h18 = 18.h;
-  static double h18Point5 = 18.5.h;
+  static double h18point5 = 18.5.h;
   static double h20 = 20.h;
   static double h30 = 30.h;
   static double h38 = 38.h;

@@ -3,7 +3,7 @@
  */
 
 abstract class AppRouterScreenNames {
-  static const String init = authType;
+  static const String init = splash;
 
   static const String splash = "/splash";
   static const String main = "/main";

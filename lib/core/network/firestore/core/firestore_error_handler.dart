@@ -91,31 +91,33 @@ abstract class FireAuthMethodErrorHandler {
 String handleFirebaseError({required FirebaseException exception}) {
   switch (exception.code) {
     case 'permission-denied':
-      return "you do not have permission to perform this action";
+      return "You do not have permission to perform this action";
     case 'unavailable':
-      return "this service is currently unavailable";
+      return "This service is currently unavailable";
     default:
-      return "an unknown firebase error occurred : ${exception.message}";
+      return "An unknown firebase error occurred : ${exception.message}";
   }
 }
 
 String handleFirebaseAuthError({required FirebaseException exception}) {
+  print("EYAD");
+  print(exception.message);
   switch (exception.code) {
     case "user-not-found":
       return "no user found for that email";
     case "wrong-password":
-      return "wrong password provided";
+      return "Wrong password provided";
     case "invalid-verification-code":
-      return "invalid verification code";
+      return "Invalid verification code";
     default:
-      return 'authenticationError: ${exception.message}';
+      return 'Authentication error: ${exception.message}';
   }
 }
 
 String handlePlatformError({required PlatformException exception}) {
-  return "a platform error occurred : ${exception.message}";
+  return "A platform error occurred : ${exception.message}";
 }
 
 String handleGeneralExceptionError({required Object exception}) {
-  return "an unknown error occurred";
+  return "An unknown error occurred";
 }

@@ -17,7 +17,7 @@ class CompassView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppWidth.w3Point8),
+      padding: EdgeInsets.symmetric(horizontal: AppWidth.w3point8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,

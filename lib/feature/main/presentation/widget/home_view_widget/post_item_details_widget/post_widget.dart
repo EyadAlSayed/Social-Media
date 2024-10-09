@@ -11,7 +11,9 @@ import 'package:social_media/core/widget/text/app_text_widget.dart';
  */
 
 class PostTag extends StatelessWidget {
-  const PostTag({super.key});
+  const PostTag({super.key, required this.tag});
+
+  final String tag;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class PostTag extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: AppWidth.w2, vertical: AppHeight.h05),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppRadius.r20),
+          borderRadius: BorderRadius.circular(AppPixel.p20),
           color: AppColor.offWhite,
           boxShadow: [
             BoxShadow(
@@ -30,17 +32,17 @@ class PostTag extends StatelessWidget {
                 blurStyle: BlurStyle.normal)
           ]),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
             AppIcon.tag,
-            colorFilter:
-                ColorFilter.mode(AppColor.black, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(AppColor.black, BlendMode.srcIn),
           ),
           SizedBox(
             width: AppWidth.w2,
           ),
           AppTextWidget(
-            text: "Alberta",
+            text: tag,
             fontSize: AppFontSize.fs16,
             fontWeight: FontWeight.w600,
           ),

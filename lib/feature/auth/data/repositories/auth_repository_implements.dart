@@ -5,7 +5,6 @@ import 'package:social_media/feature/auth/domain/entities/request/login_request_
 import 'package:social_media/feature/auth/domain/entities/request/signup_request_entity.dart';
 import 'package:social_media/feature/auth/domain/repositories/fire_auth_repository.dart';
 import '../../../../core/network/connector.dart';
-import '../../domain/entities/request/logout_request_entity.dart';
 import '../../domain/repositories/api_auth_repository.dart';
 import '../datasources/remot/api_auth_remote.dart';
 import '../datasources/remot/fire_auth_remote.dart';
@@ -44,17 +43,7 @@ class AuthRepositoryImplements implements ApiAuthRepository, FireAuthRepository 
     );
   }
 
-  @override
-  Future<Either<NetworkFailure, Unit>> logOut(
-      {required LogoutRequestEntity logoutRequestEntity}) {
-    return Connector<Unit>().connect(
-      remote: () async {
-        final result = await fireAuthRemote.logout(
-            logoutRequestEntity: logoutRequestEntity);
-        return Right(result);
-      },
-    );
-  }
+
 
   @override
   Future<Either<NetworkFailure, Unit>> signUp(
